@@ -220,7 +220,7 @@ static int from_target_user_ns(struct task_struct *ts, USERINFOTYPE type)
       ret = from_kuid_munged(target_user_ns, task_uid(ts));
       break;
     case EUID:
-      ret = from_kuid_munged(target_user_ns, task_euid(ts));
+      ret = from_kuid_munged(target_user_ns, task_cred_xxx(ts, euid));
       break;
     case GID:
       /* If task_gid() isn't defined, make our own. */

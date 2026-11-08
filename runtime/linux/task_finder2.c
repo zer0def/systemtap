@@ -938,9 +938,9 @@ __stp_utrace_attach_match_filename(struct task_struct *tsk,
 	tsk_euid = tsk->euid;
 #else
 #if defined(CONFIG_USER_NS) || (LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0))
-	tsk_euid = from_kuid_munged(current_user_ns(), task_euid(tsk));
+	tsk_euid = from_kuid_munged(current_user_ns(), task_cred_xxx(tsk, euid));
 #else
-	tsk_euid = task_euid(tsk);
+	tsk_euid = task_cred_xxx(tsk, euid);
 #endif
 #endif
 	filelen = strlen(filename);
@@ -1830,9 +1830,9 @@ stap_start_task_finder(void)
 		tsk_euid = tsk->euid;
 #else
 #if defined(CONFIG_USER_NS) || (LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0))
-		tsk_euid = from_kuid_munged(current_user_ns(), task_euid(tsk));
+		tsk_euid = from_kuid_munged(current_user_ns(), task_cred_xxx(tsk, euid));
 #else
-		tsk_euid = task_euid(tsk);
+		tsk_euid = task_cred_xxx(tsk, euid);
 #endif
 #endif
 		mmpathlen = strlen(mmpath);
